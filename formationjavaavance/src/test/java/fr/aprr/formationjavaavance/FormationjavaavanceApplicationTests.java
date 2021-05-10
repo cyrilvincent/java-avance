@@ -7,6 +7,7 @@ import com.opencsv.CSVReaderBuilder;
 import fr.aprr.formationjavaavance.entities.Book;
 import fr.aprr.formationjavaavance.entities.IMedia;
 import fr.aprr.formationjavaavance.repositories.CsvRepository;
+import fr.aprr.formationjavaavance.services.MainService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +109,12 @@ class FormationjavaavanceApplicationTests {
 		repository.open("data/export.csv", ';');
 		repository.read();
 		repository.write("data/output.csv", ';');
+	}
+
+	@Test
+	void MainServiceTest() throws IOException {
+		MainService service = context.getBean("mainService", MainService.class);
+		service.workflow("data/export.csv", "data/output.csv");
 	}
 
 
