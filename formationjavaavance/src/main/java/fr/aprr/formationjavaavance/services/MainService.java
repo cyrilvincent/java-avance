@@ -20,6 +20,7 @@ public class MainService {
     @Autowired
     private IRepository repository;
     private char sep = ';';
+    private int sizeLimit = 60;
 
     public void workflow(String inPath, String outPath) throws IOException {
         this.repository.open(inPath, this.sep);
@@ -31,6 +32,7 @@ public class MainService {
     public void converter() {
         for (String[] row : this.repository.getRows()) {
             numeroToUpper(row);
+            denominationCrop(row);
         }
     }
 
@@ -42,6 +44,9 @@ public class MainService {
 
     public void denominationCrop(String[] row) {
         String denomination = row[1];
-        // substring
+        if (denomination.length() > this.sizeLimit) {
+            denomination = denomination.substring(0, this.sizeLimit);
+            row[1] = denomination;
+        }
     }
 }
