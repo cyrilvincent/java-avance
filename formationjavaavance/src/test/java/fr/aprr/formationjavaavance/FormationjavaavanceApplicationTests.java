@@ -1,5 +1,9 @@
 package fr.aprr.formationjavaavance;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import fr.aprr.formationjavaavance.entities.Book;
 import fr.aprr.formationjavaavance.entities.IMedia;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 @SpringBootTest
 @Slf4j
@@ -68,7 +77,20 @@ class FormationjavaavanceApplicationTests {
 		m = c.getMethod("setPrice", double.class);
 		m.invoke(b, 99);
 		Assert.isTrue(b.getPrice() == 99, "Price");
+	}
 
+	@Test
+	void openCsvTest() throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader("data/export.csv"));
+		CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
+		CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).withCSVParser(parser).build();
+		List<String[]> rows = csvReader.readAll();
+		for(String[] row : rows) {
+			for(String value : row) {
+				System.out.print(value + "|");
+			}
+			System.out.println();
+		}
 	}
 
 

@@ -3,8 +3,8 @@ package fr.aprr.formationjavaavance.repositories;
 public class CsvRepository implements IRepository {
 
     @Override
-    public void open(String path) {
-        
+    public void open(String path, String sep) {
+
     }
 
     @Override
