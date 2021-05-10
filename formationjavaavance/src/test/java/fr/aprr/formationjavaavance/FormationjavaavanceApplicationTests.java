@@ -1,9 +1,6 @@
 package fr.aprr.formationjavaavance;
 
-import com.opencsv.CSVParser;
-import com.opencsv.CSVParserBuilder;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
+import com.opencsv.*;
 import com.sun.tools.javac.Main;
 import fr.aprr.formationjavaavance.entities.Book;
 import fr.aprr.formationjavaavance.entities.IMedia;
@@ -16,10 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -94,6 +88,9 @@ class FormationjavaavanceApplicationTests {
 			}
 			System.out.println();
 		}
+		CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(new FileOutputStream("data/output.csv"), "Cp1252"), ';', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+		csvWriter.writeAll(rows);
+		csvWriter.close();
 	}
 
 	@Test
