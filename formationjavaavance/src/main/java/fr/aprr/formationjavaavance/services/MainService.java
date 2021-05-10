@@ -24,6 +24,24 @@ public class MainService {
     public void workflow(String inPath, String outPath) throws IOException {
         this.repository.open(inPath, this.sep);
         this.repository.read();
+        converter();
         this.repository.write(outPath, this.sep);
+    }
+
+    public void converter() {
+        for (String[] row : this.repository.getRows()) {
+            numeroToUpper(row);
+        }
+    }
+
+    public void numeroToUpper(String[] row) {
+        String numero = row[0];
+        numero = numero.toUpperCase();
+        row[0] = numero;
+    }
+
+    public void denominationCrop(String[] row) {
+        String denomination = row[1];
+        // substring
     }
 }
