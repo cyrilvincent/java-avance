@@ -4,6 +4,7 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import com.sun.tools.javac.Main;
 import fr.aprr.formationjavaavance.entities.Book;
 import fr.aprr.formationjavaavance.entities.IMedia;
 import fr.aprr.formationjavaavance.repositories.CsvRepository;
@@ -111,9 +112,11 @@ class FormationjavaavanceApplicationTests {
 		repository.write("data/output.csv", ';');
 	}
 
+	@Autowired
+	private MainService service;
+
 	@Test
 	void MainServiceTest() throws IOException {
-		MainService service = context.getBean("mainService", MainService.class);
 		service.workflow("data/export.csv", "data/output.csv");
 	}
 

@@ -1,6 +1,7 @@
 package fr.aprr.formationjavaavance.services;
 
 import fr.aprr.formationjavaavance.repositories.CsvRepository;
+import fr.aprr.formationjavaavance.repositories.IRepository;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class MainService {
 
     @Autowired
-    private CsvRepository repository;
+    private IRepository repository;
     private char sep = ';';
 
     public void workflow(String inPath, String outPath) throws IOException {
