@@ -6,6 +6,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import fr.aprr.formationjavaavance.entities.Book;
 import fr.aprr.formationjavaavance.entities.IMedia;
+import fr.aprr.formationjavaavance.repositories.CsvRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,22 @@ class FormationjavaavanceApplicationTests {
 			}
 			System.out.println();
 		}
+	}
+
+	@Test
+	void RepositoryTestRead() throws IOException {
+		CsvRepository repository = new CsvRepository();
+		repository.open("data/export.csv", ';');
+		repository.read();
+		Assert.isTrue(repository.getRows().size() > 0, "Reader");
+	}
+
+	@Test
+	void RepositoryTestWrite() throws IOException {
+		CsvRepository repository = new CsvRepository();
+		repository.open("data/export.csv", ';');
+		repository.read();
+		repository.write("data/output.csv", ';');
 	}
 
 
