@@ -5,6 +5,8 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 @Component
@@ -20,8 +22,15 @@ public class CsvRepository implements IRepository {
     private List<String[]> rows;
 
     @Override
-    public void open(String path, char sep) throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader(new FileReader("data/export.csv"));
+    public void open(String uri, char sep) throws IOException {
+        BufferedReader reader;
+        if(uri.startsWith("http")) {
+            URL url = new URL(uri);
+            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+        }
+        else {
+            reader = new BufferedReader(new FileReader("data/export.csv"));
+        }
         CSVParser parser = new CSVParserBuilder().withSeparator(sep).build();
         this.csvReader = new CSVReaderBuilder(reader).withSkipLines(1).withCSVParser(parser).build();
     }

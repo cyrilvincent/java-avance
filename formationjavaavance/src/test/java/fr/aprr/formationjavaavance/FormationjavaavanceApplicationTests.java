@@ -18,6 +18,8 @@ import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.*;
 import java.util.List;
 
@@ -151,6 +153,18 @@ class FormationjavaavanceApplicationTests {
 		String sql = "insert into table sig (numero, denomination, type_emplacement, libelle) values ('xxx', 'yyy', 'zzz', '000')";
 		stmt.executeUpdate(sql);
 		con.close();
+	}
+
+	@Test
+	void urlReader() throws IOException {
+		URL url = new URL("http://www.google.com");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+		String s = reader.readLine();
+		while(s != null) {
+			System.out.println(s);
+			s = reader.readLine();
+		}
+		reader.close();
 	}
 
 
