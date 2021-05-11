@@ -10,7 +10,7 @@ public interface IRepository {
 
     void read() throws IOException;
 
-    void write(String path, char sep) throws IOException;
+    void write(String path, char sep, String charset) throws IOException;
 
     List<String[]> getRows();
 

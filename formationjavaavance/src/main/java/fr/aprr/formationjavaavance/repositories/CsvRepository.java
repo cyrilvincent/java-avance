@@ -33,8 +33,8 @@ public class CsvRepository implements IRepository {
     }
 
     @Override
-    public void write(String path, char sep) throws IOException {
-        csvWriter = new CSVWriter(new FileWriter(path), sep, CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
+    public void write(String path, char sep, String charset) throws IOException {
+        csvWriter = new CSVWriter(new OutputStreamWriter(new FileOutputStream("data/output.csv"), charset), sep, CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
         csvWriter.writeAll(this.rows);
         csvWriter.close();
     }

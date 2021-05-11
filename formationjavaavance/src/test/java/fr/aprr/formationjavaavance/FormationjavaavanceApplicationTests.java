@@ -106,7 +106,7 @@ class FormationjavaavanceApplicationTests {
 		CsvRepository repository = new CsvRepository();
 		repository.open("data/export.csv", ';');
 		repository.read();
-		repository.write("data/output.csv", ';');
+		repository.write("data/output.csv", ';', "UTF-8");
 	}
 
 	@Autowired
@@ -114,6 +114,7 @@ class FormationjavaavanceApplicationTests {
 
 	@Test
 	void MainServiceTest() throws IOException {
+		service.setOutCharset("Cp1252");
 		service.workflow("data/export.csv", "data/output.csv");
 	}
 

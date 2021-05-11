@@ -21,12 +21,13 @@ public class MainService {
     private IRepository repository;
     private char sep = ';';
     private int sizeLimit = 60;
+    private String outCharset = "UTF-8";
 
     public void workflow(String inPath, String outPath) throws IOException {
         this.repository.open(inPath, this.sep);
         this.repository.read();
         converter();
-        this.repository.write(outPath, this.sep);
+        this.repository.write(outPath, this.sep, this.outCharset);
     }
 
     public void converter() {
