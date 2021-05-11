@@ -9,6 +9,7 @@ import fr.aprr.formationjavaavance.services.MainService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
@@ -119,8 +120,13 @@ class FormationjavaavanceApplicationTests {
 		service.workflow("data/export.csv", "data/output.csv");
 	}
 
+	@Value( "${jdbc.url}" )
+	private String jdbcUrl;
+
+
 	@Test
 	void JdbcTest() throws ClassNotFoundException, SQLException {
+		System.out.println(jdbcUrl);
 		String drv="org.postgresql.Driver";
 		String url="jdbc:postgresql:postgres";
 		String sql="SELECT * from book";
@@ -131,6 +137,19 @@ class FormationjavaavanceApplicationTests {
 		while (rs.next()) {
 			System.out.println(rs.getString("title"));
 		}
+		con.close();
+	}
+
+	@Test
+	void JdbcInsertTest() throws ClassNotFoundException, SQLException {
+		System.out.println(jdbcUrl);
+		String drv="org.postgresql.Driver";
+		String url="jdbc:postgresql:postgres";
+		Class.forName(drv);
+		Connection con = DriverManager.getConnection(url,"postgres","sa");
+		Statement stmt=con.createStatement();
+		String sql = "insert into table sig (numero, denomination, type_emplacement, libelle) values ('xxx', 'yyy', 'zzz', '000')";
+		stmt.executeUpdate(sql);
 		con.close();
 	}
 

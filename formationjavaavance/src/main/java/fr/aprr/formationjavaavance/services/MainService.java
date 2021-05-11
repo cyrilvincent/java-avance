@@ -1,12 +1,10 @@
 package fr.aprr.formationjavaavance.services;
 
 import fr.aprr.formationjavaavance.repositories.CsvRepository;
-import fr.aprr.formationjavaavance.repositories.IRepository;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Component
@@ -18,7 +16,7 @@ import java.io.IOException;
 public class MainService {
 
     @Autowired
-    private IRepository repository;
+    private CsvRepository repository;
     private char sep = ';';
     private int sizeLimit = 60;
     private String outCharset = "UTF-8";
