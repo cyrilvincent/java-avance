@@ -17,6 +17,7 @@ import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.*;
 import java.util.List;
 
 @SpringBootTest
@@ -116,6 +117,21 @@ class FormationjavaavanceApplicationTests {
 	void MainServiceTest() throws IOException {
 		service.setOutCharset("Cp1252");
 		service.workflow("data/export.csv", "data/output.csv");
+	}
+
+	@Test
+	void JdbcTest() throws ClassNotFoundException, SQLException {
+		String drv="org.postgresql.Driver";
+		String url="jdbc:postgresql:postgres";
+		String sql="SELECT * from book";
+		Class.forName(drv);
+		Connection con = DriverManager.getConnection(url,"postgres","sa");
+		Statement stmt=con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			System.out.println(rs.getString("title"));
+		}
+		con.close();
 	}
 
 

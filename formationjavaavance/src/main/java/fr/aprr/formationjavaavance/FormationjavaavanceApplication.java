@@ -21,7 +21,7 @@ public class FormationjavaavanceApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Start workflow");
-		log.info(args[0]);
+		// log.info(args[0]);
 		service.setOutCharset("Cp1252");
 		service.workflow("data/export.csv", "data/output.csv");
 		log.info("End workflow");
